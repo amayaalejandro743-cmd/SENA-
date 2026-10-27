@@ -1017,5 +1017,5 @@ def menu_principal():
         else:
             print("Gracias por usar el sistema. Hasta luego.")
             break
-if __name__ == "__main__":
-    menu_principal()
+
+menu_principal()
