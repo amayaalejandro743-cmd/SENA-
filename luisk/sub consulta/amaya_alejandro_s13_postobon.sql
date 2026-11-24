@@ -77,6 +77,38 @@ GROUP BY sede_id
 )
 ORDER BY nomina DESC, sede_id ASC;
 
+-- Vista 1: vw_s13_salarios_superiores_promedio
+CREATE OR REPLACE VIEW vw_s13_salarios_superiores_promedio AS
+SELECT
+id,
+nombre,
+sede_id,
+salario
+FROM empleados
+WHERE salario > (SELECT AVG(salario) FROM empleados);
+
+SELECT *
+FROM vw_s13_salarios_superiores_promedio
+ORDER BY salario DESC, id ASC;
+
+SHOW CREATE VIEW vw_s13_salarios_superiores_promedio;
+
+-- Vista 2: vw_s13_sedes_sin_empleados
+CREATE OR REPLACE VIEW vw_s13_sedes_sin_empleados AS
+SELECT
+s.id AS sede_id,
+s.nombre AS sede
+FROM sedes s
+WHERE NOT EXISTS (
+SELECT 1
+FROM empleados e
+WHERE e.sede_id = s.id
+);
+
+SELECT *
+FROM vw_s13_sedes_sin_empleados
+ORDER BY sede_id ASC;
+
 
 
 
